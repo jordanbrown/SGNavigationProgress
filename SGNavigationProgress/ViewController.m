@@ -62,7 +62,7 @@
 - (IBAction)startPercentageTitlePressed:(id)sender
 {
     self.canceled = NO;
-	[self performSelectorInBackground:@selector(runTitlePercentageLoop) withObject:nil];
+	[self performSelectorInBackground:@selector(runTitleWithTintPercentageLoop) withObject:nil];
 }
 
 - (IBAction)startMaskTitleWithPercentagePressed:(id)sender
@@ -120,7 +120,7 @@
 		NSLog(@"%f", percentage);
 		[NSThread sleepForTimeInterval:0.1];
 		dispatch_async(dispatch_get_main_queue(), ^{
-			[self.navigationController setSGProgressPercentage:percentage andTitle:@"Sending..."];
+            [self.navigationController setSGProgressPercentage:percentage andTitle:@"Sending..."];
 		});
 		if(percentage >= 100.0)
 		{
@@ -130,6 +130,27 @@
 		percentage = percentage + (arc4random() % 3);
 	}
 }
+
+- (void)runTitleWithTintPercentageLoop
+{
+    float percentage = 0;
+    
+    while (percentage <= 200 && !self.canceled)
+    {
+        NSLog(@"%f", percentage);
+        [NSThread sleepForTimeInterval:0.1];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController setSGProgressPercentage:percentage andTintColor:self.navigationController.navigationBar.tintColor andTitle:@"Sending..."];
+        });
+        if(percentage >= 100.0)
+        {
+            return;
+        }
+        
+        percentage = percentage + (arc4random() % 3);
+    }
+}
+
 
 - (void)runMaskTitlePercentageLoop
 {
