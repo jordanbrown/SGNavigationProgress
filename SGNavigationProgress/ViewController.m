@@ -62,7 +62,7 @@
 - (IBAction)startPercentageTitlePressed:(id)sender
 {
     self.canceled = NO;
-	[self performSelectorInBackground:@selector(runTitleWithTintPercentageLoop) withObject:nil];
+	[self performSelectorInBackground:@selector(runTitlePercentageLoop) withObject:nil];
 }
 
 - (IBAction)startMaskTitleWithPercentagePressed:(id)sender
